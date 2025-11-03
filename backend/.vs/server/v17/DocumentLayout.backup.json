@@ -1,0 +1,62 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Owner\\Desktop\\talpiot\\fullstack-projects\\dvarTorahGen\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8FDBDCE2-DDC7-4348-92F1-6077D77A3B91}|server\\server.csproj|c:\\users\\owner\\desktop\\talpiot\\fullstack-projects\\dvartorahgen\\backend\\server\\repositories\\torahrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8FDBDCE2-DDC7-4348-92F1-6077D77A3B91}|server\\server.csproj|solutionrelative:server\\repositories\\torahrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8FDBDCE2-DDC7-4348-92F1-6077D77A3B91}|server\\server.csproj|c:\\users\\owner\\desktop\\talpiot\\fullstack-projects\\dvartorahgen\\backend\\server\\controllers\\torahcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8FDBDCE2-DDC7-4348-92F1-6077D77A3B91}|server\\server.csproj|solutionrelative:server\\controllers\\torahcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 328,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TorahController.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Desktop\\talpiot\\fullstack-projects\\dvarTorahGen\\backend\\server\\Controllers\\TorahController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\TorahController.cs",
+              "ToolTip": "C:\\Users\\Owner\\Desktop\\talpiot\\fullstack-projects\\dvarTorahGen\\backend\\server\\Controllers\\TorahController.cs",
+              "RelativeToolTip": "server\\Controllers\\TorahController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA9wDwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T09:54:16.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TorahRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Desktop\\talpiot\\fullstack-projects\\dvarTorahGen\\backend\\server\\Repositories\\TorahRepository.cs",
+              "RelativeDocumentMoniker": "server\\Repositories\\TorahRepository.cs",
+              "ToolTip": "C:\\Users\\Owner\\Desktop\\talpiot\\fullstack-projects\\dvarTorahGen\\backend\\server\\Repositories\\TorahRepository.cs*",
+              "RelativeToolTip": "server\\Repositories\\TorahRepository.cs*",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAwwGEAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T13:46:55.892Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

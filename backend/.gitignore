@@ -1,0 +1,10 @@
+# App settings with secrets
+server/appsettings.json
+server/appsettings.*.json
+!server/appsettings.example.json
+
+# Build results (bin and obj folders often contain copies of appsettings.json)
+server/bin/
+server/obj/
+**/bin/
+**/obj/

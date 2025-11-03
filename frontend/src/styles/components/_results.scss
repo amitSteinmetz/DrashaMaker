@@ -1,0 +1,81 @@
+.results-card {
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  direction: rtl;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -50px; // Changed from right to left for RTL
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba(13, 110, 253, 0.1) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .card-header {
+    border-bottom: 2px solid rgba(13, 110, 253, 0.2);
+    direction: rtl;
+  }
+
+  .dvar-torah-content {
+    min-height: 200px;
+    color: #333;
+    direction: rtl;
+    text-align: right;
+    line-height: 2;
+    font-size: 1.15rem;
+    white-space: pre-wrap;
+    font-family: "Georgia, serif";
+    max-width: 900px;
+
+    // Ink blot effect on text
+    &::first-letter {
+      font-size: 2.5em;
+      line-height: 1;
+      float: right;
+      margin-left: 5px;
+      color: #0d6efd;
+      font-weight: bold;
+    }
+  }
+
+  .btn-group {
+    direction: ltr; // Buttons should be in their natural order
+    
+    .btn {
+      min-width: 80px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .btn-group {
+      flex-direction: row;
+      width: 100%;
+      margin-top: 15px;
+      direction: rtl; // On mobile, buttons flow RTL
+      
+      .btn {
+        flex: 1;
+      }
+    }
+    
+    .card-header {
+      flex-direction: column;
+    }
+  }
+}
