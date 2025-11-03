@@ -91,13 +91,13 @@ namespace server.Repositories
         //         (string.IsNullOrEmpty(filters.Commentator) ? "" : $" לפי {filters.Commentator}"));
         // }
 
-        public string GenerateDummyResponse() {
+        public string GenerateDrasha(DrashaFilters filters) {
             var apiKey = _configuration.GetValue<string>("OpenAI:ApiKey");
 
 
             ChatClient client = new(model: "gpt-4o", apiKey);
 
-            ChatCompletion completion = client.CompleteChat("Tell me dvar torah");
+            ChatCompletion completion = client.CompleteChat($"you are a jewish rabbi, Tell me in hebrew dvar torah for {filters.Parasha}, and involve {filters.Commentator} opinion in the answer");
 
             Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
 

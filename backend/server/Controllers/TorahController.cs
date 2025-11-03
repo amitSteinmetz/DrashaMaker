@@ -46,16 +46,11 @@ namespace server.Controllers
         //     return Ok(dvarTorah);
         // }
 
-        [HttpGet("generate-dummy-response")]
-        public IActionResult GenerateDummyResponse()
+        [HttpPost("generate-drasha")]
+        public IActionResult GenerateDrasha(DrashaFilters filters)
         {
-           string res =  _torahRepository.GenerateDummyResponse();
-            //var response = new DummyOpenAIResponse
-            //{  
-            //    Response = res,
-            //    Status = "success"
-            //};
-            return Ok(new { result = res});
+           string drasha =  _torahRepository.GenerateDrasha(filters);
+            return Ok(new { result = drasha});
         }
     }
 }

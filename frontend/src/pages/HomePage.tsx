@@ -73,7 +73,7 @@ const HomePage = () => {
     console.log("Selected filters:", filters);
 
     try {
-      const response = await fetch("http://localhost:5286/api/torah/generate", {
+      const response = await fetch("http://localhost:5286/api/torah/generate-drasha", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(filters),
@@ -83,30 +83,33 @@ const HomePage = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Get the file from the response
-      const blob = await response.blob();
+      const data = await response.json();
+      console.log("Drasha response from openAI:", data);
 
-      // Extract filename from Content-Disposition header or use default
-      const contentDisposition = response.headers.get("Content-Disposition");
-      let fileName = "dvar-torah.docx";
-      if (contentDisposition) {
-        const fileNameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
-        if (fileNameMatch) {
-          fileName = fileNameMatch[1];
-        }
-      }
+      // // Get the file from the response
+      // const blob = await response.blob();
 
-      // Create a download link and trigger download
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      // // Extract filename from Content-Disposition header or use default
+      // const contentDisposition = response.headers.get("Content-Disposition");
+      // let fileName = "dvar-torah.docx";
+      // if (contentDisposition) {
+      //   const fileNameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+      //   if (fileNameMatch) {
+      //     fileName = fileNameMatch[1];
+      //   }
+      // }
 
-      console.log("File downloaded successfully:", fileName);
+      // // Create a download link and trigger download
+      // const url = window.URL.createObjectURL(blob);
+      // const link = document.createElement("a");
+      // link.href = url;
+      // link.download = fileName;
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      // window.URL.revokeObjectURL(url);
+
+      // console.log("File downloaded successfully:", fileName);
 
       // Mock response for UI display (since file content isn't easily readable)
       // In the future, the endpoint could return both the file and the content
