@@ -15,7 +15,7 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ isLoading, onSubmit }) => {
           צור דבר תורה מותאם אישית בקליק
         </h2>
         <p className="text-muted">
-          בחר פרשה או משהו אחר וצור דבר תורה בהתאם למגוון פילטרים
+          בחר פרשה או משהו אחר וצור דבר תורה בהתאם למגוון רחב של פילטרים
         </p>
       </div>
 
