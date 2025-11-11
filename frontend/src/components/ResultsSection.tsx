@@ -5,7 +5,7 @@ import { Filters } from "../models/filters.model";
 type ResultsSectionProps = {
   title: string;
   content: string;
-  filters: Filters;
+  filters: Filters | null;
   onCreateNew?: () => void;
 }
 
@@ -60,10 +60,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
           <body>
             <h1>${title}</h1>
             ${
-              filters.topic || filters.style
-                ? `<div class="meta">${filters.topic ? `נושא: ${filters.topic}` : ""} ${
-                    filters.parasha ? `| פרשה: ${filters.parasha}` : ""
-                  } ${filters.style ? `| סגנון: ${filters.style}` : ""}</div>`
+              filters?.topic || filters?.style
+                ? `<div class="meta">${filters?.topic ? `נושא: ${filters?.topic}` : ""} ${
+                    filters?.parasha ? `| פרשה: ${filters?.parasha}` : ""
+                  } ${filters?.style ? `| סגנון: ${filters?.style}` : ""}</div>`
                 : ""
             }
             <div>${content.replace(/\n/g, "<br>")}</div>
