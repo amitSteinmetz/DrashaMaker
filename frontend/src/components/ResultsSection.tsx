@@ -60,10 +60,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
           <body>
             <h1>${title}</h1>
             ${
-              filters.parasha || filters.commentator
-                ? `<div class="meta">${filters.parasha ? `פרשה: ${filters.parasha}` : ""} ${
-                    filters.commentator ? `| מפרש: ${filters.commentator}` : ""
-                  }</div>`
+              filters.topic || filters.style
+                ? `<div class="meta">${filters.topic ? `נושא: ${filters.topic}` : ""} ${
+                    filters.parasha ? `| פרשה: ${filters.parasha}` : ""
+                  } ${filters.style ? `| סגנון: ${filters.style}` : ""}</div>`
                 : ""
             }
             <div>${content.replace(/\n/g, "<br>")}</div>

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import Loader from "./Loader";
-import logo from "../assets/images/app-logo.png";
+import { TOPICS, PARASHOT, STYLES } from "../utils/hebrewConstants";
 
 interface FiltersPanelProps {
   isLoading: boolean;
@@ -9,6 +9,14 @@ interface FiltersPanelProps {
 }
 
 const FiltersPanel: React.FC<FiltersPanelProps> = ({ isLoading, onSubmit }) => {
+  const [selectedTopic, setSelectedTopic] = useState<string>("");
+
+  const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedTopic(e.target.value);
+  };
+
+  const showParashaFilter = selectedTopic === "פרשת שבוע";
+
   return (
     <div className="filters-panel-container">
       <div className="text-center mb-5">
@@ -21,43 +29,69 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ isLoading, onSubmit }) => {
           wge twejh מחר שבת ועוד אין לך דבר תורה מוכן? הגעת למקום הנכון!
         </p>
         <p className="text-muted">
-          בחר פרשה או משהו אחר וצור דבר תורה בהתאם למגוון רחב של פילטרים
+          בחר נושא וסגנון וצור דבר תורה בהתאם למגוון רחב של פילטרים
         </p>
-
-        <img alt="logo" src={logo} className="header__logo-img" />
       </div>
 
       <Card className="p-4 shadow-lg border-0 filters-card">
         <Form onSubmit={onSubmit}>
           <Row className="g-3 g-md-4 justify-content-center">
             <Col xs={12} sm={10} md={6} lg={5}>
-              <Form.Group controlId="parasha">
-                <Form.Label className="fw-semibold mb-2">פרשה</Form.Label>
+              <Form.Group controlId="topic">
+                <Form.Label className="fw-semibold mb-2">נושא</Form.Label>
                 <Form.Select
-                  name="parasha"
-                  defaultValue="לך לך"
+                  name="topic"
                   className="form-select-lg"
                   size="lg"
+                  required
+                  onChange={handleTopicChange}
                 >
-                  <option value="לך לך">לך לך</option>
-                  <option value="וירא">וירא</option>
-                  <option value="חיי שרה">חיי שרה</option>
+                  <option value="">בחר נושא</option>
+                  {Object.values(TOPICS).map((topic) => (
+                    <option key={topic} value={topic}>
+                      {topic}
+                    </option>
+                  ))}
                 </Form.Select>
               </Form.Group>
             </Col>
 
+            {showParashaFilter && (
+              <Col xs={12} sm={10} md={6} lg={5}>
+                <Form.Group controlId="parasha">
+                  <Form.Label className="fw-semibold mb-2">בחר פרשה</Form.Label>
+                  <Form.Select
+                    name="parasha"
+                    className="form-select-lg"
+                    size="lg"
+                    required
+                  >
+                    <option value="">בחר פרשה</option>
+                    {Object.values(PARASHOT).map((parasha) => (
+                      <option key={parasha} value={parasha}>
+                        {parasha}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+            )}
+
             <Col xs={12} sm={10} md={6} lg={5}>
-              <Form.Group controlId="commentator">
-                <Form.Label className="fw-semibold mb-2">מפרש</Form.Label>
+              <Form.Group controlId="style">
+                <Form.Label className="fw-semibold mb-2">סגנון</Form.Label>
                 <Form.Select
-                  name="commentator"
+                  name="style"
                   className="form-select-lg"
                   size="lg"
+                  required
                 >
-                  <option value="">בחר פרשן (אופציונלי)</option>
-                  <option value='רש"י'>רש"י</option>
-                  <option value='רמב"ן'>רמב"ן</option>
-                  <option value="ספורנו">ספורנו</option>
+                  <option value="">בחר סגנון</option>
+                  {Object.values(STYLES).map((style) => (
+                    <option key={style} value={style}>
+                      {style}
+                    </option>
+                  ))}
                 </Form.Select>
               </Form.Group>
             </Col>

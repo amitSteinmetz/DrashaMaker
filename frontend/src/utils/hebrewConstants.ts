@@ -1,26 +1,26 @@
-// Hebrew constants for parashot and commentators
+// Hebrew constants for topics, parashot, and styles
+export const TOPICS = {
+  "פרשת שבוע": "פרשת שבוע",
+  "בר מצווה": "בר מצווה",
+  "בת מצווה": "בת מצווה",
+  "ברית": "ברית",
+  "שבע ברכות": "שבע ברכות",
+  "מסיבת הודיה": "מסיבת הודיה",
+} as const;
+
 export const PARASHOT = {
+  "בראשית": "בראשית",
+  "נח": "נח",
   "לך לך": "לך לך",
   "וירא": "וירא",
   "חיי שרה": "חיי שרה",
 } as const;
 
-export const COMMENTATORS = {
-  "רש\"י": "רש\"י",
-  "רמב\"ן": "רמב\"ן",
-  "ספורנו": "ספורנו",
+export const STYLES = {
+  "תעוף על זה": "תעוף על זה",
+  "רעיון קצר לשולחן השבת": "רעיון קצר לשולחן השבת",
+  "עיוני": "עיוני",
+  "חסידי": "חסידי",
+  "עם הומור": "עם הומור",
 } as const;
-
-// Mapping from English values to Hebrew display names
-export const COMMENTATOR_DISPLAY: Record<string, string> = {
-  rashi: "רש\"י",
-  ramban: "רמב\"ן",
-  sforno: "ספורנו",
-};
-
-export const COMMENTATOR_VALUE: Record<string, string> = {
-  "רש\"י": "רש\"י",
-  "רמב\"ן": "רמב\"ן",
-  "ספורנו": "ספורנו",
-};
 

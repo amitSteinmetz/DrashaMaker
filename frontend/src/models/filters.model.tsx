@@ -1,5 +1,5 @@
 export interface Filters {
-  parasha: string;
-  commentator: string;
-  //   style: string;
+  topic: string;
+  parasha?: string; // Optional, only if topic is "פרשת שבוע"
+  style: string;
 }

@@ -9,7 +9,11 @@
 
 .main-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 1.5rem 0.75rem;
+  max-width: 100%;
 
   @media (min-width: 576px) {
     padding: 2rem 1rem;
@@ -23,14 +27,48 @@
     padding: 5rem 3rem;
   }
 
-  .container-fluid {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+  > * {
+    width: 100%;
+    max-width: 100%;
 
-    @media (min-width: 576px) {
-      padding-left: 1rem;
-      padding-right: 1rem;
+    @media (min-width: 992px) {
+      max-width: 83.333%;
     }
+
+    @media (min-width: 1200px) {
+      max-width: 66.666%;
+    }
+  }
+}
+
+.dummy-button {
+  display: block;
+  margin: 0 auto 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid #6c757d;
+  border-radius: 8px;
+  background: transparent;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  direction: rtl;
+
+  @media (min-width: 576px) {
+    font-size: 1.1rem;
+    padding: 0.875rem 2rem;
+  }
+
+  &:hover:not(:disabled) {
+    background: #6c757d;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
