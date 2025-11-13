@@ -7,12 +7,12 @@ type ResultsSectionProps = {
   content: string;
   filters: Filters | null;
   onCreateNew?: () => void;
-}
+};
 
 const ResultsSection: React.FC<ResultsSectionProps> = ({
   title,
   content,
- filters,
+  filters,
   onCreateNew,
 }) => {
   const handleCopy = () => {
@@ -61,9 +61,11 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
             <h1>${title}</h1>
             ${
               filters?.topic || filters?.style
-                ? `<div class="meta">${filters?.topic ? `נושא: ${filters?.topic}` : ""} ${
-                    filters?.parasha ? `| פרשה: ${filters?.parasha}` : ""
-                  } ${filters?.style ? `| סגנון: ${filters?.style}` : ""}</div>`
+                ? `<div class="meta">${
+                    filters?.topic ? `נושא: ${filters?.topic}` : ""
+                  } ${filters?.parasha ? `| פרשה: ${filters?.parasha}` : ""} ${
+                    filters?.style ? `| סגנון: ${filters?.style}` : ""
+                  }</div>`
                 : ""
             }
             <div>${content.replace(/\n/g, "<br>")}</div>
@@ -80,11 +82,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
       <Card className="shadow-lg border-0 results-card">
         <Card.Header className="bg-success text-white">
           <div className="d-flex justify-content-between align-items-center flex-wrap">
-            <div className="flex-grow-1 w-100 w-md-auto text-center text-md-end">
-              <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-center justify-content-md-start gap-2">
-                <h4 className="mb-0">{title}</h4>
-              </div>
-            </div>
+            <h4 className="mb-0 flex-grow-1 w-100 w-md-auto text-center text-md-end">
+              {title}
+            </h4>
             <ButtonGroup className="flex-shrink-0 justify-content-center w-100 w-md-auto results-buttons">
               {onCreateNew && (
                 <Button
