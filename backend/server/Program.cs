@@ -2,6 +2,7 @@
 using OpenAI.Chat;
 using QuestPDF.Infrastructure;
 using server.Repositories;
+using server.Services;
 
 namespace server
 {
@@ -24,7 +25,13 @@ namespace server
                 var model = configuration["OpenAI:Model"] ?? "gpt-4o";
                 return new ChatClient(model, apiKey);
             });
-            
+            builder.Services.AddSingleton<DrashaService>(sp =>
+            {
+                var env = sp.GetRequiredService<IWebHostEnvironment>();
+                var path = Path.Combine(env.ContentRootPath, "Utils", "DrashaStyles.json");
+                return new DrashaService(path);
+            });
+
             // Configure CORS to allow all origins (for development)
             builder.Services.AddCors(options =>
             {
