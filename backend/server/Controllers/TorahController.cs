@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using server.Repositories;
 using server.Models;
+using OpenAI.Chat;
+using server.Services;
 
 namespace server.Controllers
 {
@@ -10,10 +12,14 @@ namespace server.Controllers
     public class TorahController : ControllerBase
     {
         private readonly TorahRepository _torahRepository;
+        private readonly DrashaService _drashaService;
+        private readonly IConfiguration _configuration;
 
-        public TorahController(TorahRepository torahRepository)
+        public TorahController(TorahRepository torahRepository, DrashaService drashaService, IConfiguration configuration)
         {
             _torahRepository = torahRepository;
+            _drashaService = drashaService;
+            _configuration = configuration;
         }
 
         [HttpPost("generate-dummy")]
@@ -39,18 +45,22 @@ namespace server.Controllers
             return File(fileBytes, contentType, fileName);
         }
 
-        // [HttpPost("generate")]
-        // public async Task<IActionResult> Generate([FromBody] DrashaFilters filters)
-        // {
-        //     string dvarTorah = await _torahRepository.GenerateTorah(filters);
-        //     return Ok(dvarTorah);
-        // }
-
         [HttpPost("generate-drasha")]
-        public IActionResult GenerateDrasha(DrashaFilters filters)
+        public async Task<IActionResult> GenerateDrasha([FromBody] DrashaFilters filters)
         {
-           string drasha =  _torahRepository.GenerateDrasha(filters);
-            return Ok(new { result = drasha});
+            //string drasha =  _torahRepository.GenerateDrasha(filters);
+
+            var apiKey = _configuration.GetValue<string>("OpenAI:ApiKey");
+
+            ChatClient client = new(model: "gpt-4.1", apiKey);
+
+            var chatMessages = _drashaService.BuildMessages(filters);
+
+            ChatCompletion completion = await client.CompleteChatAsync(chatMessages);
+
+            Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
+
+            return Ok(new { result = completion.Content[0].Text });
         }
     }
 }
