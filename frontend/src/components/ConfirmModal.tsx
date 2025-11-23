@@ -11,12 +11,15 @@ interface ConfirmModalProps {
   onCancel: () => void;
 }
 
+const DEFAULT_CONFIRM_TEXT = "אישור";
+const DEFAULT_CANCEL_TEXT = "ביטול";
+
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   show,
   title,
   message,
-  confirmText = "אישור",
-  cancelText = "ביטול",
+  confirmText = DEFAULT_CONFIRM_TEXT,
+  cancelText = DEFAULT_CANCEL_TEXT,
   onConfirm,
   onCancel,
 }) => {
@@ -42,4 +45,4 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   );
 };
 
-export default ConfirmModal;
+export default React.memo(ConfirmModal);

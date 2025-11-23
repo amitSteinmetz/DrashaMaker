@@ -1,6 +1,12 @@
-import React from "react";
-import { Card, Button, ButtonGroup, Badge } from "react-bootstrap";
+import React, { useCallback } from "react";
+import { Card, Button, ButtonGroup } from "react-bootstrap";
 import { Filters } from "../models/filters.model";
+import {
+  RESULTS_ACTIONS,
+  RESULTS_ACTION_TITLES,
+  NOTIFICATIONS,
+  FILE_TYPES,
+} from "../constants/appConstants";
 
 type ResultsSectionProps = {
   title: string;
@@ -15,13 +21,12 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   filters,
   onCreateNew,
 }) => {
-  const handleCopy = () => {
+  const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(content);
-    // You can add a toast notification here
-    alert("נשמר ללוח!");
-  };
+    alert(NOTIFICATIONS.COPIED_TO_CLIPBOARD);
+  }, [content]);
 
-  const handleShare = () => {
+  const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator.share({
         title: title,
@@ -30,10 +35,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
     } else {
       handleCopy();
     }
-  };
+  }, [title, content, handleCopy]);
 
-  const handleDownload = () => {
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const handleDownload = useCallback(() => {
+    const blob = new Blob([content], { type: FILE_TYPES.TEXT_PLAIN });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -42,11 +47,20 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  };
+  }, [content, title]);
 
-  const handlePrint = () => {
+  const handlePrint = useCallback(() => {
     const printWindow = window.open("", "_blank");
     if (printWindow) {
+      const metaInfo =
+        filters?.topic || filters?.style
+          ? `<div class="meta">${
+              filters?.topic ? `נושא: ${filters?.topic}` : ""
+            } ${filters?.parasha ? `| פרשה: ${filters?.parasha}` : ""} ${
+              filters?.style ? `| סגנון: ${filters?.style}` : ""
+            }</div>`
+          : "";
+
       printWindow.document.write(`
         <html>
           <head>
@@ -59,15 +73,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
           </head>
           <body>
             <h1>${title}</h1>
-            ${
-              filters?.topic || filters?.style
-                ? `<div class="meta">${
-                    filters?.topic ? `נושא: ${filters?.topic}` : ""
-                  } ${filters?.parasha ? `| פרשה: ${filters?.parasha}` : ""} ${
-                    filters?.style ? `| סגנון: ${filters?.style}` : ""
-                  }</div>`
-                : ""
-            }
+            ${metaInfo}
             <div>${content.replace(/\n/g, "<br>")}</div>
           </body>
         </html>
@@ -75,7 +81,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
       printWindow.document.close();
       printWindow.print();
     }
-  };
+  }, [title, content, filters]);
 
   return (
     <div className="results-section-container">
@@ -90,42 +96,42 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 variant="info"
                 size="sm"
                 onClick={onCreateNew}
-                title="צור דבר תורה חדש"
+                title={RESULTS_ACTION_TITLES.CREATE_NEW}
               >
-                ✨ צור חדש
+                {RESULTS_ACTIONS.CREATE_NEW}
               </Button>
 
               <Button
                 variant="light"
                 size="sm"
                 onClick={handleCopy}
-                title="העתק"
+                title={RESULTS_ACTION_TITLES.COPY}
               >
-                📋 העתק
+                {RESULTS_ACTIONS.COPY}
               </Button>
               <Button
                 variant="light"
                 size="sm"
                 onClick={handleShare}
-                title="שתף"
+                title={RESULTS_ACTION_TITLES.SHARE}
               >
-                🔗 שתף
+                {RESULTS_ACTIONS.SHARE}
               </Button>
               <Button
                 variant="light"
                 size="sm"
                 onClick={handleDownload}
-                title="הורד"
+                title={RESULTS_ACTION_TITLES.DOWNLOAD}
               >
-                ⬇️ הורד
+                {RESULTS_ACTIONS.DOWNLOAD}
               </Button>
               <Button
                 variant="light"
                 size="sm"
                 onClick={handlePrint}
-                title="הדפס"
+                title={RESULTS_ACTION_TITLES.PRINT}
               >
-                🖨️ הדפס
+                {RESULTS_ACTIONS.PRINT}
               </Button>
             </ButtonGroup>
           </div>
@@ -138,4 +144,4 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   );
 };
 
-export default ResultsSection;
+export default React.memo(ResultsSection);

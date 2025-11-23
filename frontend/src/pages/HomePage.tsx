@@ -1,7 +1,8 @@
+import React from "react";
 import Header from "../components/Header";
 import Main from "../components/Main";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <div className="home-page">
       <Header />

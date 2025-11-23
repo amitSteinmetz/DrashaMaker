@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import { Form, Button, Row, Card } from "react-bootstrap";
 import Loader from "./Loader";
 import Filter from "./Filter";
-import { TOPICS, PARASHOT, STYLES, LENGTHS } from "../utils/hebrewConstants";
+import { TOPICS, PARASHOT, STYLES, LENGTHS } from "../constants/hebrewConstants";
+import { TOPIC_VALUES, DRASHA_LOADER_MESSAGE, CREATE_DRASHA_BUTTON_TEXT, CREATING_DRASHA_TEXT } from "../constants/appConstants";
 
 interface FiltersPanelProps {
   isLoading: boolean;
@@ -12,11 +13,12 @@ interface FiltersPanelProps {
 const FiltersPanel: React.FC<FiltersPanelProps> = ({ isLoading, onSubmit }) => {
   const [selectedTopic, setSelectedTopic] = useState<string>("");
 
-  const handleTopicChange = (_value: string, label: string) => {
+  const handleTopicChange = useCallback((_value: string, label: string) => {
     setSelectedTopic(label);
-  };
+  }, []);
+
   const showParashaFilter = useMemo(
-    () => selectedTopic === "פרשת שבוע",
+    () => selectedTopic === TOPIC_VALUES.WEEKLY_PARASHA,
     [selectedTopic]
   );
 
@@ -80,17 +82,15 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({ isLoading, onSubmit }) => {
               className="px-5 py-2"
               disabled={isLoading}
             >
-              {isLoading ? "יוצר..." : "צור דבר תורה"}
+              {isLoading ? CREATING_DRASHA_TEXT : CREATE_DRASHA_BUTTON_TEXT}
             </Button>
           </div>
         </Form>
 
-        {isLoading && <Loader message="יוצר את דבר התורה שלך..." />}
+        {isLoading && <Loader message={DRASHA_LOADER_MESSAGE} className="text-center my-5" />}
       </Card>
     </div>
   );
 };
 
-export default FiltersPanel;
-
-// Chassidic, Topical, Analytical, Mussar
+export default React.memo(FiltersPanel);

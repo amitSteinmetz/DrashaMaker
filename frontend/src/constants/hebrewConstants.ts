@@ -1,3 +1,13 @@
+export const TOPICS = {
+  "פרשת שבוע": "פרשת שבוע",
+  "בר מצווה": "בר מצווה",
+  "בת מצווה": "בת מצווה",
+  "חתונה": "חתונה",
+  "ברית מילה": "Brit mila",
+  "זבד הבת": "Zeved habat",
+  "פדיון הבן": "Pidyon haben"
+} as const;
+
 export const PARASHOT = {
   // Bereishit (Genesis)
   "בראשית": "בראשית",

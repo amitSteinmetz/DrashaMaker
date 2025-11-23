@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import { Container, Card } from "react-bootstrap";
 
-const AboutUs = () => {
+const AboutUs: React.FC = () => {
   return (
     <div className="home-page">
       <Header />

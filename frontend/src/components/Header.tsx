@@ -1,10 +1,17 @@
+import React, { useMemo } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/app-logo.png";
 
-const Header = () => {
+const ABOUT_US_PATH = "/about-us";
+const HOME_PATH = "/";
+
+const Header: React.FC = () => {
   const location = useLocation();
-  const isAboutUsPage = location.pathname === "/about-us";
+  const isAboutUsPage = useMemo(
+    () => location.pathname === ABOUT_US_PATH,
+    [location.pathname]
+  );
 
   return (
     <Navbar
@@ -15,7 +22,7 @@ const Header = () => {
       collapseOnSelect
     >
       <Container fluid className="header-container">
-        <Navbar.Brand as={Link} to="/" className="header__logo">
+        <Navbar.Brand as={Link} to={HOME_PATH} className="header__logo">
           <img alt="logo" src={logo} className="header__logo-img" />
         </Navbar.Brand>
 
@@ -23,11 +30,11 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="header__text">
             {isAboutUsPage ? (
-              <Nav.Link as={Link} to="/">
+              <Nav.Link as={Link} to={HOME_PATH}>
                 לעמוד הבית
               </Nav.Link>
             ) : (
-              <Nav.Link as={Link} to="/about-us">
+              <Nav.Link as={Link} to={ABOUT_US_PATH}>
                 קצת עלינו
               </Nav.Link>
             )}
@@ -39,4 +46,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

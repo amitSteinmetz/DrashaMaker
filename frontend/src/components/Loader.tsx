@@ -1,26 +1,31 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
+import { DEFAULT_LOADER_MESSAGE, SPINNER_SIZE } from "../constants/appConstants";
 
 interface LoaderProps {
   message?: string;
+  className?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ message = "טוען..." }) => {
+const Loader: React.FC<LoaderProps> = ({ 
+  message = DEFAULT_LOADER_MESSAGE,
+  className = ""
+}) => {
   return (
-    <div className="text-center my-5 loader-container">
+    <div className={`loader-container ${className}`}>
       <Spinner
         animation="border"
         role="status"
         variant="primary"
-        style={{ width: "3rem", height: "3rem" }}
+        style={{ width: SPINNER_SIZE.WIDTH, height: SPINNER_SIZE.HEIGHT }}
       >
-        <span className="visually-hidden">טוען...</span>
+        <span className="visually-hidden">{DEFAULT_LOADER_MESSAGE}</span>
       </Spinner>
       {message && (
-        <div className="mt-3 text-muted fs-5 fw-semibold">{message}</div>
+        <div className="loader-message">{message}</div>
       )}
     </div>
   );
 };
 
-export default Loader;
+export default React.memo(Loader);

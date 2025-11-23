@@ -1,5 +1,6 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 import { Form, Col, Dropdown } from "react-bootstrap";
+import { NOTIFICATIONS } from "../constants/appConstants";
 
 interface FilterProps {
   controlId: string;
@@ -33,6 +34,7 @@ const Filter: React.FC<FilterProps> = ({
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
 
+  // Reset selection when options change
   useEffect(() => {
     setSelectedLabel("");
     setSelectedValue("");
@@ -51,14 +53,28 @@ const Filter: React.FC<FilterProps> = ({
     });
   }, [optionEntries, searchTerm]);
 
-  const handleSelect = (label: string, value: string | number) => {
-    const valueAsString = String(value);
-    setSelectedLabel(label);
-    setSelectedValue(valueAsString);
-    setSearchTerm("");
-    setIsOpen(false);
-    onChange?.(valueAsString, label);
-  };
+  const handleSelect = useCallback(
+    (label: string, value: string | number) => {
+      const valueAsString = String(value);
+      setSelectedLabel(label);
+      setSelectedValue(valueAsString);
+      setSearchTerm("");
+      setIsOpen(false);
+      onChange?.(valueAsString, label);
+    },
+    [onChange]
+  );
+
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    []
+  );
+
+  const handleToggle = useCallback((next: boolean | undefined) => {
+    setIsOpen(next ?? false);
+  }, []);
 
   return (
     <Col {...colProps}>
@@ -66,7 +82,7 @@ const Filter: React.FC<FilterProps> = ({
         <Form.Label className="fw-semibold mb-2">{label}</Form.Label>
         <Dropdown
           show={isOpen}
-          onToggle={(next) => setIsOpen(next ?? false)}
+          onToggle={handleToggle}
           drop="down"
           className="filter-dropdown w-100"
           align="start"
@@ -86,7 +102,7 @@ const Filter: React.FC<FilterProps> = ({
                 type="text"
                 placeholder="חפש..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearchChange}
                 className="dropdown-search-input"
                 dir="rtl"
                 autoFocus
@@ -110,7 +126,9 @@ const Filter: React.FC<FilterProps> = ({
                   );
                 })
               ) : (
-                <div className="dropdown-no-results">לא נמצאו תוצאות</div>
+                <div className="dropdown-no-results">
+                  {NOTIFICATIONS.NO_RESULTS}
+                </div>
               )}
             </div>
           </Dropdown.Menu>
@@ -135,4 +153,4 @@ const Filter: React.FC<FilterProps> = ({
   );
 };
 
-export default Filter;
+export default React.memo(Filter);
